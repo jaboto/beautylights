@@ -52,3 +52,63 @@ Examples:
 
 ![Jump static pattern](/imgs/jump_static.gif)
 
+## Scroll
+Light the LEDs with a scrolling pattern starting always from the same point.
+
+Options available:
+* Static
+* Right to left
+
+Examples:
+* Normal
+
+![Scroll pattern](/imgs/scroll.gif)
+
+* Static
+
+![Scroll static pattern](/imgs/scroll_static.gif)
+
+## Scroll Fade
+Light the LEDs with a scrolling pattern starting always from the same point and leaving a light trace.
+
+Options available:
+* Fade (number of LEDs on for the trace). A 0 fade presents the same pattern as the normal scroll.
+* Right to left
+
+Examples:
+* Fade 1 (by default):
+
+![Scroll fade pattern](/imgs/scroll_fade1.gif)
+
+* Fade 2:
+
+![Scroll fade pattern](/imgs/scroll_fade2.gif)
+
+
+## Sroll Knight
+Light the LEDs with a scrolling pattern bouncing at each side in a Kinght Rider effect.
+
+Options available:
+* Fade (number of LEDs on for the trace). A 0 fade presents the same pattern as the bounce pattern.
+* Right to left
+
+Examples:
+* Fade 1 (by default):
+
+![Scroll knight pattern](/imgs/scroll_knight1.gif)
+
+* Fade 2:
+
+![Scroll knight pattern](/imgs/scroll_knight2.gif)
+
+
+## Bounce
+Light the LEDs with a scrolling pattern bouncing at each side.
+
+Options available:
+* Right to left
+
+Example:
+
+![Bounce pattern](/imgs/bounce.gif)
+
