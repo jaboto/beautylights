@@ -9,6 +9,7 @@ Options available:
 * Random delay: delay will vary between 0 and the passed delay
 
 Example:
+
 ![Random single pattern](/imgs/random_single.gif)
 
 ## Random single
@@ -18,18 +19,21 @@ Options available:
 * Random delay: delay will vary between 0 and the passed delay
 
 Example:
+
 ![Random multiple pattern](/imgs/random_multiple.gif)
 
 ## Explode
 Light the LEDs from inside to the outside.
 
 Example:
+
 ![Explode pattern](/imgs/explode.gif)
 
 ## Implode
 Light the LEDs from the outside to the inside.
 
 Example:
+
 ![Implode pattern](/imgs/implode.gif)
 
 ## Jump
@@ -41,8 +45,10 @@ Options available:
 
 Examples:
 * Normal
+
 ![Jump pattern](/imgs/jump.gif)
 
 * Static
+
 ![Jump static pattern](/imgs/jump_static.gif)
 
