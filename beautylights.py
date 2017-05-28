@@ -266,7 +266,7 @@ class BeautyLights(object):
 
         self.all_off()
 
-    def scroll_knigth(self, speed, duration, fade=1, r2l=False):
+    def scroll_knight(self, speed, duration, fade=1, r2l=False):
         """
         Draw a pattern lighting from one to the other leaving a fade trace and
         return. This effect simulates the knight rider effect. A scroll equal 
@@ -445,7 +445,6 @@ class BeautyLights(object):
                 pyb.delay(round((delay/4)/52))
 
             pyb.delay(round(delay/6))
-            #self.all_off()
 
         self.all_off()
 

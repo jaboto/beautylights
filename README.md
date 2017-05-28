@@ -2,6 +2,9 @@
 MicroPython LED library for PYBLITE v1.0
 
 Speed and duration is available for every method. Some methods allow to set specific parameters like fading (by default always 1), static (by default false and which leaves the lights on until the whole cycle is completed), right to left (by default always left to rigth)...
+
+The images below have been generated with the same code but do not reprsent the speed or delay in any way as gif do not allow different speed per frame required in some patterns.
+
 ## Random single
 Light a random LED and turn it off before turning on any other.
 
