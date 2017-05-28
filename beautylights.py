@@ -74,7 +74,7 @@ class BeautyLights(object):
         Turn on and off multiple LED randomly
 
         Args:
-            delay (int): the delay in milliseconds between two steps
+            delay (int): the delay in milliseconds between two cycles
             duration (int): for how long (in milliseconds) the method will run
             random_delay (bool): if True it will overwrite the delay for a new
                 delay between 0 and the passed delay
@@ -97,13 +97,13 @@ class BeautyLights(object):
         Draw a pattern from the two inner LED towards the outside
 
         Args:
-            delay (int): the delay in milliseconds between two steps
+            delay (int): the delay in milliseconds between two cycles
             duration (int): for how long (in milliseconds) the method will run
-            var_delay (bool): if True it will overwrite the delay for a new
-                delay between 0 and the passed delay
         """
-        #TODO complete
         until = pyb.millis()+duration
+        
+        # A full cycle has 3 steps so set delay accordingly
+        delay = int(delay/3)
 
         while(pyb.millis() < until):
             self.__led_green.on()
@@ -123,11 +123,17 @@ class BeautyLights(object):
         self.all_off()
 
     def implode(self, speed, duration):
-        # Speed in miliseconds to complete a full cycle
+        """
+        Draw a pattern from the two outside LED towards the outside
+
+        Args:
+            delay (int): the delay in milliseconds between two cycles
+            duration (int): for how long (in milliseconds) the method will run
+        """
         until = pyb.millis()+duration
 
-        # A full scroll involves 2 lights so delay = speed/4
-        delay = int(speed/2)
+        # A full cycle has 3 steps so set delay accordingly
+        delay = int(delay/3)
 
         while(pyb.millis() < until):
             self.__led_red.on()
@@ -147,11 +153,19 @@ class BeautyLights(object):
         self.all_off()
 
     def scroll(self, speed, duration, static=False, r2l=False):
-        # Speed in miliseconds to complete a full cycle
+        """
+        Draw a pattern from the two outside LED towards the outside
+
+        Args:
+            delay (int): the delay in milliseconds between two cycles
+            duration (int): for how long (in milliseconds) the method will run
+            static (bool): if enabled lights will remain on for the whole cycle
+            r2l (bool): draw the pattern from right to left
+        """
         until = pyb.millis()+duration
 
-        # A full scroll involves 4 lights so delay = speed/4
-        delay = int(speed/4)
+        # A full cycle has 5 steps so set delay accordingly
+        delay = int(speed/5)
 
         while(pyb.millis() < until):
             leds = self.__leds[::-1] if r2l else self.__leds
@@ -164,14 +178,23 @@ class BeautyLights(object):
             pyb.delay(delay)
 
     def jump(self, speed, duration, static=False, r2l=False):
-        # Speed in miliseconds to complete a full cycle
+        """
+        Draw a pattern jumping to the furthest that hasn't been  lighted yet.
+
+        Args:
+            delay (int): the delay in milliseconds between two cycles
+            duration (int): for how long (in milliseconds) the method will run
+            static (bool): if enabled lights will remain on for the whole cycle
+            r2l (bool): draw the pattern from right to left
+        """
         until = pyb.millis()+duration
 
-        # A full bounce involves 4 lights so delay = speed/8
-        delay = int(speed/4)
+        # A full cycle has 5 steps so set delay accordingly
+        delay = int(speed/5)
 
         while(pyb.millis() < until):
-            # For simplicity we duplicate the led list
+            # For simplicity we duplicate the led list to operate
+            #   popping and pushing
             jumping_leds = list(self.__leds)
             while(len(jumping_leds) > 0):
                 led = jumping_leds.pop(0)
@@ -190,10 +213,17 @@ class BeautyLights(object):
         self.all_off()
 
     def bounce(self, speed, duration, r2l=False):
-        # Speed in miliseconds to complete a full cycle
+        """
+        Draw a pattern lighting from one to the other side simulating a bounce.
+
+        Args:
+            delay (int): the delay in milliseconds between two cycles
+            duration (int): for how long (in milliseconds) the method will run
+            r2l (bool): draw the pattern from right to left
+        """
         until = pyb.millis()+duration
 
-        # A full bounce involves 8 lights so delay = speed/8
+        # A full cycle has 8 steps so set delay accordingly
         delay = int(speed/8)
 
         while(pyb.millis() < until):
@@ -210,13 +240,20 @@ class BeautyLights(object):
         self.all_off()
 
     def scroll_fade(self, speed, duration, fade=1, r2l=False):
-        # Speed in miliseconds to complete a full cycle
+        """
+        Draw a pattern lighting from one to the other leaving a fade trace. A
+        scroll equal to 0 has the same effect as using the scroll method.
+
+        Args:
+            delay (int): the delay in milliseconds between two cycles
+            duration (int): for how long (in milliseconds) the method will run
+            fade (int): how many lights are left on while scrolling. Default = 1
+            r2l (bool): draw the pattern from right to left
+        """
         until = pyb.millis()+duration
 
-        # Fade = 0 is normal scroll
-
-        # A full scroll involves 4 lights so delay = speed/4
-        delay = int(speed/4)
+        # A full cycle has 5 steps so set delay accordingly
+        delay = int(speed/5)
 
         while(pyb.millis() < until):
             steps = len(self.__leds)+fade
@@ -230,13 +267,22 @@ class BeautyLights(object):
         self.all_off()
 
     def scroll_knigth(self, speed, duration, fade=1, r2l=False):
-        # Speed in miliseconds to complete a full cycle
+        """
+        Draw a pattern lighting from one to the other leaving a fade trace and
+        return. This effect simulates the knight rider effect. A scroll equal 
+        to 0 has the same effect as using the bounce method.
+
+        Args:
+            delay (int): the delay in milliseconds between two cycles
+            duration (int): for how long (in milliseconds) the method will run
+            fade (int): how many lights are left on while scrolling (default
+                        option)
+            r2l (bool): draw the pattern from right to left
+        """
         until = pyb.millis()+duration
 
-        # Fade = 0 is normal scroll
-
-        # A full scroll involves 4 lights so delay = speed/4
-        delay = int(speed/8)
+        # A full cycle has 5 steps so set delay accordingly
+        delay = int(speed/5)
 
         while(pyb.millis() < until):
             steps = len(self.__leds)+fade
@@ -259,27 +305,32 @@ class BeautyLights(object):
 
     def glow(self, delay, duration, blue=True, orange=False):
         """
-        Turn on the specified LED by increasing the light until the maximum
-        brightness.
+        Turn on any of the variable intensity LED by increasing the light from
+        zero until the maximum brightness.
+
+        Recommended a delay of minimum 500 to appreciate the effect.
 
         Args:
-            delay (int): the delay in milliseconds between two steps
-                minimum 500 to appreciate any effect
+            delay (int): the delay in milliseconds between two cycles
             duration (int): for how long (in milliseconds) the method will run
+            blue (bool): use the blue LED (default option) 
+            orange (bool): use the organte LED
         """
         until = pyb.millis()+duration
 
+        # A full cycle has 51 steps so set delay accordingly
+        delay = int(delay/51)
+
         while(pyb.millis() < until):
-            t_step = delay / 255
-            
-            for intensity in range(0,255):
+            # From 0 to 255 with steps of 5 (0..51)
+            for intensity in range(0,52):
                 if blue:
-                    self.__led_blue.intensity(intensity)
+                    self.__led_blue.intensity(intensity*5)
                 if orange:
-                    self.__led_orange.intensity(intensity)
+                    self.__led_orange.intensity(intensity*5)
                 intensity = intensity+1
 
-                pyb.delay(int(round(t_step)))
+                pyb.delay(delay)
 
             self.all_off()
 
@@ -288,89 +339,115 @@ class BeautyLights(object):
     def swing(self, delay, duration, r2l=False):
         """
         Turn on the orange LED by increasing the light until the maximum
-        brightness while decreasing the blue.
+        brightness while decreasing the blue and then the other way around.
+
+        Recommended a delay of minimum 500 to appreciate the effect.
 
         Args:
-            delay (int): the delay in milliseconds between two steps
-                minimum 500 to appreciate any effect
+            delay (int): the delay in milliseconds between two cycles
             duration (int): for how long (in milliseconds) the method will run
+            r2l (bool): draw the pattern from right to left
         """
         until = pyb.millis()+duration
 
+        # A full cycle has 102 steps so set delay accordingly
+        delay = int(delay/102)
+
         while(pyb.millis() < until):
-            t_step = delay / (255 * 2)
-            
             if r2l:
-                for intensity in range(0,255):
-                    self.__led_orange.intensity(255-intensity)
-                    self.__led_blue.intensity(intensity)
-                    pyb.delay(int(round(t_step)))
+                # From 0 to 255 with steps of 5 (0..51)
+                for intensity in range(0,52):
+                    self.__led_orange.intensity(255-intensity*5)
+                    self.__led_blue.intensity(intensity*5)
+                    pyb.delay(delay)
 
-                for intensity in range(0,255):
-                    self.__led_orange.intensity(intensity)
-                    self.__led_blue.intensity(255-intensity)
-                    pyb.delay(int(round(t_step)))
+                # From 0 to 255 with steps of 5 (0..51)
+                for intensity in range(0,52):
+                    self.__led_orange.intensity(intensity*5)
+                    self.__led_blue.intensity(255-intensity*5)
+                    pyb.delay(delay)
             else:
-                for intensity in range(0,255):
-                    self.__led_orange.intensity(intensity)
-                    self.__led_blue.intensity(255-intensity)
-                    pyb.delay(int(round(t_step)))
+                # From 0 to 255 with steps of 5 (0..51)
+                for intensity in range(0,52):
+                    self.__led_orange.intensity(intensity*5)
+                    self.__led_blue.intensity(255-intensity*5)
+                    pyb.delay(delay)
 
-                for intensity in range(0,255):
-                    self.__led_orange.intensity(255-intensity)
-                    self.__led_blue.intensity(intensity)
-                    pyb.delay(int(round(t_step)))
+                # From 0 to 255 with steps of 5 (0..51)
+                for intensity in range(0,52):
+                    self.__led_orange.intensity(255-intensity*5)
+                    self.__led_blue.intensity(intensity*5)
+                    pyb.delay(delay)
 
         self.all_off()
 
-    def heart_beat(self, delay, duration):
+    def heart_beat(self, delay, duration, blue=True, orange=False):
         """
+        Turn on any of the variable intensity LED simulating a heart beat
         Simulate a heartbeat. 
         
-        It is consider that a heartbeat consist on four timely equal parts:
-        flat zero wave, increasing peak to 60% of the intensity, increasing to
-        100% of the intensity and down to zero.
+        It is consider that a heartbeat consist on four timely unequal parts:
+        flat zero wave (takes 1/6 of the time), increasing peak to 60% of the
+        intensity (takes 1/8 of the time), reducing peak to 30% of the intesity
+        (takes 1/16 of the time) increasing to 100% of the intensity (takes 
+        1/12 of the time) and down to zero (takes 1/4 of the time) and a flat
+        zero wave (takes 1/6 of the time)
 
               /\
            /\/  \
         __/      \__
 
+
+        Recommended a delay of minimum 800 to appreciate the effect.
+
         Args:
             delay (int): the delay in milliseconds between two steps
             duration (int): for how long (in milliseconds) the method will run
-            random_delay (bool): if True it will overwrite the delay for a new
-                delay between 0 and the passed delay
+            blue (bool): use the blue LED (default option) 
+            orange (bool): use the organte LED
         """
         until = pyb.millis()+duration
-        t_quarter = int(round(delay/4))
 
         while(pyb.millis() < until):
-            pyb.delay(round(delay/4))
+            # Flat area that takes a quarter of the time
+            pyb.delay(round(delay/6))
 
-            for intensity in range(0, 150):
-                self.__led_blue.intensity(intensity)
-                pyb.delay(round(150/(delay/8)))
+            # Increase from 0 to 150 (0..30 * 5)
+            for intensity in range(0, 31):
+                if blue:
+                    self.__led_blue.intensity(intensity*5)
+                if orange:
+                    self.__led_orange.intensity(intensity*5)
+                pyb.delay(round((delay/8)/30))
             
-            # Decrease from 150 to 30
-            for intensity in range(0,120):
-                self.__led_blue.intensity(150-intensity)
-                pyb.delay(round(120/(delay/16)))
+            # Decrease from 150 to 30 (0..24 * 5)
+            for intensity in range(0,25):
+                if blue:
+                    self.__led_blue.intensity(150-intensity*5)
+                if orange:
+                    self.__led_orange.intensity(150-intensity*5)
+                pyb.delay(round((delay/16)/24))
 
-            # Increase from 30 to 255
-            for intensity in range(30,255):
-                self.__led_blue.intensity(intensity)
-                pyb.delay(round(225/(delay/8)))
+            # Increase from 30 to 255 (6..50 * 5)
+            for intensity in range(6,52):
+                if blue:
+                    self.__led_blue.intensity(intensity*5)
+                if orange:
+                    self.__led_orange.intensity(intensity*5)
+                pyb.delay(round((delay/12)/45))
 
-            # Decrease from 255 to 0
-            for intensity in range(0,255):
-                self.__led_blue.intensity(255-intensity)
-                pyb.delay(round(255/(delay/12)))
+            # Decrease from 255 to 0 (0..51 * 5)
+            for intensity in range(0,52):
+                if blue:
+                    self.__led_blue.intensity(255-intensity*5)
+                if orange:
+                    self.__led_orange.intensity(255-intensity*5)
+                pyb.delay(round((delay/4)/52))
 
-            pyb.delay(round(delay/4))
+            pyb.delay(round(delay/6))
+            #self.all_off()
 
         self.all_off()
-
-
 
 if __name__ == '__main__':
     bl = BeautifulLights()
