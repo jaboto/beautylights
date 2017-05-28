@@ -112,3 +112,27 @@ Example:
 
 ![Bounce pattern](/imgs/bounce.gif)
 
+## Glow
+Light any of the variable intensity LEDs (orange and/or blue) from 0 to the max intensity. The default LED is the blue for this effect.
+
+Example:
+
+![Glow pattern](/imgs/glow.gif)
+
+## Swing
+Light the variable intensity LEDs (orange and blue) from 0 to the max intensity and from the max intensity to 0 in a swing effect.
+
+Options available:
+* Right to left
+
+Example:
+
+![Swing pattern](/imgs/swing.gif)
+
+## Heart Beat
+Light the variable intensity LEDs (orange and/or blue) simulating a heart beat with two peaks per cycle. The default LED is the blue for this effect.
+
+
+Example:
+
+![Heart beat pattern](/imgs/heart.gif)
