@@ -118,6 +118,10 @@ Example:
 ## Glow
 Light any of the variable intensity LEDs (orange and/or blue) from 0 to the max intensity. The default LED is the blue for this effect.
 
+Options available:
+* Blue LED
+* Orange LED
+
 Example:
 
 ![Glow pattern](/imgs/glow.gif)
@@ -135,6 +139,9 @@ Example:
 ## Heart Beat
 Light the variable intensity LEDs (orange and/or blue) simulating a heart beat with two peaks per cycle. The default LED is the blue for this effect.
 
+Options available:
+* Blue LED
+* Orange LED
 
 Example:
 
